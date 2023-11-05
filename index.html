@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Card Layout</title>
+<style>
+  .card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .card {
+    margin: 50px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 600px; /* Adjust card width as needed */
+    transition: background-color 0.3s ease;
+  }
+  .card h2, .card p {
+    transition: color 0.3s ease;
+  }
+  .card h2 {
+    font-size: 5em;
+  }
+  .card p {
+    font-size: 2em;
+  }
+  .icon {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.5em;
+  }
+  .color-picker {
+    display: block;
+    margin: 10px auto;
+  }
+</style>
+</head>
+<body>
+
+<input type="color" id="bgColorPicker" class="color-picker" onchange="updateCardColor(this.value, 'background')" value="#ffffff">
+<input type="color" id="textColorPicker" class="color-picker" onchange="updateCardColor(this.value, 'text')" value="#000000">
+
+<div class="card-container">
+  <div class="card" id="card1">
+    <h2>Color Harmony</h2>
+    <p>Color harmony is the concept in color theory that uses geometric relationships to identify harmonious color combinations. These combinations are found on the color wheel, which places primary, secondary, and tertiary colors in rainbow order. You can find color harmony by placing geometric shapes on the wheel.</p>
+    <div class="icon">Beauty</div>
+  </div>
+  <!-- Duplicate the above div for more cards -->
+</div>
+
+<script>
+  function updateCardColor(value, type) {
+    const card = document.getElementById('card1');
+    if (type === 'background') {
+      card.style.backgroundColor = value;
+    } else if (type === 'text') {
+      card.querySelectorAll('h2, p, .icon').forEach(element => {
+        element.style.color = value;
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
