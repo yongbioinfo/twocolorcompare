@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interactive Card Layout</title>
 <style>
+
   .card-container {
     display: flex;
     justify-content: center;
@@ -36,12 +37,24 @@
     display: block;
     margin: 10px auto;
   }
+  .copy-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  /* (Style definitions for card and other elements) */
 </style>
 </head>
 <body>
 
 <input type="color" id="bgColorPicker" class="color-picker" onchange="updateCardColor(this.value, 'background')" value="#ffffff">
+<button class="copy-button" onclick="copyHEX('background')">Copy Background HEX</button>
+
 <input type="color" id="textColorPicker" class="color-picker" onchange="updateCardColor(this.value, 'text')" value="#000000">
+<button class="copy-button" onclick="copyHEX('text')">Copy Text HEX</button>
 
 <div class="card-container">
   <div class="card" id="card1">
@@ -49,8 +62,17 @@
     <p>Color harmony is the concept in color theory that uses geometric relationships to identify harmonious color combinations. These combinations are found on the color wheel, which places primary, secondary, and tertiary colors in rainbow order. You can find color harmony by placing geometric shapes on the wheel.</p>
     <div class="icon">Beauty</div>
   </div>
-  <!-- Duplicate the above div for more cards -->
+  <!-- Additional cards can be added here -->
 </div>
+
+<!-- 색상 조합 예시 갤러리 시작 -->
+<div class="gallery-container">
+    <div class="color-card" onclick="applyColor('#6C5B7B')"> #6C5B7B </div>
+    <div class="color-card" onclick="applyColor('#355C7D')"> #355C7D </div>
+    <div class="color-card" onclick="applyColor('#C06C84')"> #C06C84 </div>
+    <!-- 추가 색상 조합 카드 -->
+  </div>
+  <!-- 색상 조합 예시 갤러리 끝 -->
 
 <script>
   function updateCardColor(value, type) {
@@ -58,10 +80,30 @@
     if (type === 'background') {
       card.style.backgroundColor = value;
     } else if (type === 'text') {
-      card.querySelectorAll('h2, p, .icon').forEach(element => {
-        element.style.color = value;
-      });
+      card.style.color = value;
     }
+  }
+
+  function copyHEX(hexValue) {
+    navigator.clipboard.writeText(hexValue).then(() => {
+      alert('Copied to clipboard: ' + hexValue);
+    }).catch(err => {
+      console.error('Error copying to clipboard: ', err);
+    });
+  }
+
+  function copyHEX(type) {
+    let hexValue = '';
+    if (type === 'background') {
+      hexValue = document.getElementById('bgColorPicker').value;
+    } else if (type === 'text') {
+      hexValue = document.getElementById('textColorPicker').value;
+    }
+    navigator.clipboard.writeText(hexValue).then(() => {
+      alert('Copied to clipboard: ' + hexValue);
+    }).catch(err => {
+      console.error('Error copying to clipboard: ', err);
+    });
   }
 </script>
 
